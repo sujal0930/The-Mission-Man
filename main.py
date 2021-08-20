@@ -2,9 +2,6 @@ import pygame
 import time
 import classFile
 import world_data
-import eel
-    
-eel.init("startmenu")
 
 
 pygame.display.init()
@@ -87,7 +84,7 @@ def redrawWindow():
     
 
 """  MAIN LOOP  """
-eel.start("startmenu.html")
+
 # Main while loop
 run=True
 while run:

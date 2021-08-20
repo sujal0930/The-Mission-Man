@@ -28,7 +28,9 @@ class player(object):
         self.vel=3
         self.vel_y=0
         self.isJump=False
-        self.isWalk=False
+        # self.isWalk=False
+        self.moveLeft=False
+        self.moveRight = False
         self.walkCount=0
         self.jumpCount=10
         self.standing=True
@@ -44,17 +46,36 @@ class player(object):
             if self.walkCount+1 > 45:
                 self.walkCount=0
             elif self.isJump:
+                if self.moveLeft:
+                    image=pygame.transform.scale(self.jump,(100,100))
+                    image= pygame.transform.flip(image,False,True)
+                    rotated_image = pygame.transform.rotate(image, -180)
+                    new_rect = rotated_image.get_rect(center = image.get_rect(center = (self.x, self.y)).center)
+                    screen.blit(rotated_image,(self.x-self.width,self.y))
+                    self.walkCount+=1
+                elif self.moveRight:
                     image=pygame.transform.scale(self.jump,(100,100))
                     screen.blit(image,(self.x,self.y))
                     self.walkCount+=1
-            elif self.isWalk:
+
+            elif self.moveRight:
                     image=pygame.transform.scale(self.walkRight[self.walkCount//3],(100,100))
                     screen.blit(image,(self.x,self.y))
+                    self.walkCount+=1
+            elif self.moveLeft:
+                    image=pygame.transform.scale(self.walkRight[self.walkCount//3],(100,100))
+                    image= pygame.transform.flip(image,False,True)
+                    rotated_image = pygame.transform.rotate(image, -180)
+                    new_rect = rotated_image.get_rect(center = image.get_rect(center = (self.x, self.y)).center)
+                    screen.blit(rotated_image,(self.x-self.width,self.y))
                     self.walkCount+=1
             elif self.standing:
                     ideaImage=pygame.transform.scale(self.ideal,(100,100))
                     screen.blit(ideaImage,(self.x,self.y))
-            self.hitbox=(self.x,self.y,50,90)
+            if self.moveLeft and not self.standing:
+                self.hitbox=(self.x-self.width//3,self.y,50,90)
+            else:
+                self.hitbox=(self.x,self.y,50,90)
             # pygame.draw.rect(screen, (10,10,10), self.hitbox,1 )
             pygame.draw.rect(screen, (0,255,0),(self.hitbox[0]+5,self.hitbox[1]-self.hitbox[3]+69,60 - (6*(10-self.health/5)),10))
         else:
@@ -77,34 +98,43 @@ class player(object):
         """This function takes care of all movements of player"""
         dy=0
         dx=0
+         # LEFT AND RIGHT MOVEMENT
         keys = pygame.key.get_pressed()
-    # LEFT AND RIGHT MOVEMENT
         if keys[pygame.K_LEFT]:
             dx -= 5
-            self.isWalk=True
+            self.moveLeft=True
+            self.moveRight=False
             self.standing = False
         elif keys[pygame.K_RIGHT] :
             # scrollBack
             dx += 5
-            self.isWalk=True
+            self.moveLeft=False
+            self.moveRight=True
             self.standing = False
         else:
-            self.isWalk=False
             self.standing = True
-            # self.walkCount = 0 
+            self.walkCount = 0 
+            self.moveLeft=False
+            self.moveRight=False
         # jUMPING LOGIC 
         
         if keys[pygame.K_SPACE] and not self.isJump :
                 self.vel_y=-25
                 self.isJump = True
-                self.isWalk = False
+                self.moveLeft=False
+                self.moveRight=False
                 self.walkCount = 0
         if keys[pygame.K_SPACE]== False :
             self.isJump=False
         
         if keys[pygame.K_TAB] and bullet.shootLoop==0 :
         # bullet.play()
-            face=1
+            
+            if self.moveLeft:
+                face=-1
+            else :
+                face= 1
+            
             if len(bullet.bulletList)<100:
                 bullet.bulletList.append(bullet(round(self.x+self.width//2),round(self.y+self.height//2),face))
                 # pygame.time.delay()
@@ -259,13 +289,13 @@ class bullet(object):
                             score+=1
                             bullet.bulletList.pop(i) 
                             continue
-                        else: bullet.bulletList[i].x += bullet.bulletList[i].vel
+                        else: bullet.bulletList[i].x += (bullet.bulletList[i].vel)
 
 
                 #firing and moving logic of bullets
                 
                 if bullet.bulletList[i].x < 975 and bullet.bulletList[i].x>0:
-                    bullet.bulletList[i].x += bullet.bulletList[i].vel
+                    bullet.bulletList[i].x += (bullet.bulletList[i].vel)
                 else:
                     bullet.bulletList.pop(i)
                     continue
@@ -275,9 +305,10 @@ class bullet(object):
     def draw(self,screen):
         image = pygame.transform.scale(self.bullImg,(25,25))
         image=pygame.transform.rotate(image, -90)
-        screen.blit(image,(self.x,self.y))
-
-
+        if self.bulletFace==1:
+            screen.blit(image,(self.x,self.y))
+        else:
+            screen.blit(image,(self.x-20,self.y))
 
 class star(object):
     """ Star class """
@@ -312,3 +343,4 @@ class star(object):
                 self.visible=False
         return score
             
+
