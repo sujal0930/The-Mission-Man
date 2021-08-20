@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Document</title>
+    <script src="eel.js"></script>
+</head>
+
+
+<style>
+    body {
+        background-image: url('BG.png');
+        background-size: 975 750;
+        background-repeat: no-repeat;
+    }
+    
+    h1 {
+        color: rgb(179, 39, 39);
+        text-align: center;
+        font-size: 130px;
+    }
+    
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav ul li {
+        --c: rgb(47, 79, 109);
+        color: var(--c);
+        font-size: 20px;
+        border: 0.1em solid var(--c);
+        border-radius: 0.5em;
+        width: 12em;
+        height: 3em;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-family: sans-serif;
+        letter-spacing: 0.1em;
+        text-align: center;
+        line-height: 3em;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: 0.5s;
+        margin: 1em;
+        left: 32%;
+    }
+    
+    nav ul li span {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background-color: var(--c);
+        transform: translateY(150%);
+        border-radius: 50%;
+        left: calc((var(--n) - 1) * 25%);
+        transition: 0.5s;
+        transition-delay: calc((var(--n) - 1) * 0.1s);
+        z-index: -1;
+    }
+    
+    nav ul li:hover {
+        color: rgb(143, 13, 13);
+    }
+    
+    nav ul li:hover span {
+        transform: translateY(0) scale(2);
+    }
+    
+    nav ul li span:nth-child(1) {
+        --n: 1;
+    }
+    
+    nav ul li span:nth-child(2) {
+        --n: 2;
+    }
+    
+    nav ul li span:nth-child(3) {
+        --n: 3;
+    }
+    
+    nav ul li span:nth-child(4) {
+        --n: 4;
+    }
+</style>
+
+
+
+
+<body>
+    <div class="container msg">
+        <h1>THE MISSION MAN</h1>
+    </div>
+
+    <nav class="buttons">
+        <ul>
+            <li class="game" onclick="()=>{window.close()}">
+                START GAME
+                <span></span><span></span><span></span><span></span>
+            </li>
+
+
+        </ul>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+var = document.querySelector('.game')
