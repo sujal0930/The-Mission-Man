@@ -22,7 +22,7 @@ shootLoop=0
 # gameOver =False
 gamewon = False
 Bgx=0
-
+MenuVisible =True
 
 
 world = world_data.world()
@@ -33,6 +33,8 @@ z2 = classFile.zombie(130,150,75,75,160)
 zom.append(z1)
 zom.append(z2)
 s1=classFile.star(700,100)
+
+
 
 
 
@@ -87,10 +89,20 @@ def redrawWindow():
 
 # Main while loop
 run=True
+
+# buttons
+# startMenuButton = classFile.button(200,200,"START GAME")
+# def menuScreen():
+#     run =startMenuButton.draw_button(screen)
+
+
 while run:
     clock.tick(45)
     # print(man.x)
-            
+    # print(MenuVisible)
+    # while menuScreen():
+    #     startMenuButton.draw_button(screen)
+
             
     # Screen Scroll Logic
     if man.x>950 and not nextScreen:
