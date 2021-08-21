@@ -38,17 +38,18 @@ s1=classFile.star(700,100)
 
 
 
+
+def reset():
+    pass
+
 def won(man,bgX):
     if Bgx<0 and man.x>900:
-        pygame.font.init()
-        font = pygame.font.SysFont('serif', 90, bold=True, italic=False)
-        won = font.render('You Won!',1,(100,100,100))
-        screen.blit(won,(250,250))
-        pygame.display.update()
-        return True
-    return False
-        
-
+        Intro.run(screen,"YOU WON","play Again","Exit")
+        reset()
+def lost(man):
+    if man.dead:
+        Intro.run(screen,"Oops! YOU LOST","Play Again","Exit")    
+        reset()
 
 def redrawWindow():
     """ Draws or blits all whole world """
@@ -78,8 +79,8 @@ def redrawWindow():
     # check for gamewon
     if  won(man,Bgx):
         flag=False
-        time.sleep(5)
-        return flag
+    if lost(man):
+        flag=False
     
     pygame.display.update()
     return True
@@ -94,7 +95,8 @@ while run:
     clock.tick(45)
     
     if MenuVisible:
-        Intro.run(screen)
+        Intro.button.intro=True
+        Intro.run(screen,"THE MISSION MAN","START GAME")
         MenuVisible=False
 
             

@@ -162,3 +162,4 @@ class world():
         for tile in self.objList:
             screen.blit(tile[0],tile[1])
             # pygame.draw.rect(screen,(255,255,255),tile[1],2)
+            
