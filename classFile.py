@@ -1,8 +1,10 @@
 import pygame
 pygame.font.init()
-font = pygame.font.SysFont('serif', 90, bold=True, italic=False)
 
-# Player Class #
+
+
+font = pygame.font.SysFont('serif', 40, bold=True, italic=False)
+    
 
 
 class player(object):
@@ -15,8 +17,7 @@ class player(object):
     """
     # image loading
     walkRight = [pygame.image.load(f'player/w{i}.png') for i in range(1, 16)]
-    deadImages = [pygame.image.load(
-        f'player/dead{i}.png') for i in range(1, 16)]
+    deadImages = [pygame.image.load(f'player/dead{i}.png') for i in range(1, 16)]
     jump = pygame.image.load('player/j8.png')
     ideal = pygame.image.load('player/i2.png')
 
@@ -56,7 +57,7 @@ class player(object):
                     center=image.get_rect(center=(self.x, self.y)).center)
                     screen.blit(rotated_image, (self.x-self.width, self.y))
                     self.walkCount += 1
-                else :
+                else:
                     image = pygame.transform.scale(self.jump, (100, 100))
                     screen.blit(image, (self.x, self.y))
                     self.walkCount += 1
@@ -77,7 +78,6 @@ class player(object):
                 screen.blit(rotated_image, (self.x-self.width, self.y))
                 self.walkCount += 1
 
-                
             elif self.standing:
                 ideaImage = pygame.transform.scale(self.ideal, (100, 100))
                 screen.blit(ideaImage, (self.x, self.y))
@@ -86,7 +86,6 @@ class player(object):
                 self.hitbox = (self.x-self.width//3, self.y, 50, 90)
             else:
                 self.hitbox = (self.x, self.y, 50, 90)
-
 
             # pygame.draw.rect(screen, (10,10,10), self.hitbox,1 )
             pygame.draw.rect(screen, (0, 255, 0), (
@@ -97,7 +96,7 @@ class player(object):
             # if self.walkCount+1 > 45:
             #     self.walkCount=0
             if self.walkCount >= 45:
-
+                font = fontDefine(90)
                 gameOVer = font.render('GAME OVER', 1, (100, 100, 100))
                 screen.blit(gameOVer, (250, 250))
                 self.dead = True
@@ -193,9 +192,6 @@ class player(object):
                         self.health -= 1
 
 
-# zombie/Enemy Class
-
-
 class zombie():
     """ Zombie Class->
     (init , reset , draw , move , hit)
@@ -262,8 +258,6 @@ class zombie():
             self.health -= 1
         else:
             self.visible = False
-
-# CLASS BULLET
 
 
 class bullet(object):
@@ -358,3 +352,53 @@ class star(object):
         return score
 
 
+class button(object):
+		
+	#colours for button and text
+	button_col = (255, 0, 0)
+	hover_col = (75, 225, 255)
+	click_col = (50, 150, 255)
+	text_col = (0,0,0)
+	width = 180
+	height = 70
+
+	def __init__(self, x, y, text):
+		self.x = x
+		self.y = y
+		self.text = text
+
+	def draw_button(self,screen):
+
+		clicked=False
+		action = False
+
+		#get mouse position
+		pos = pygame.mouse.get_pos()
+
+		#create pygame Rect object for the button
+		button_rect = pygame.Rect(self.x, self.y, self.width, self.height)
+		
+		#check mouseover and clicked conditions
+		if button_rect.collidepoint(pos):
+			if pygame.mouse.get_pressed()[0] == 1:
+				clicked = True
+				pygame.draw.rect(screen, self.click_col, button_rect)
+			elif pygame.mouse.get_pressed()[0] == 0 and clicked == True:
+				clicked = False
+				action = True
+			else:
+				pygame.draw.rect(screen, self.hover_col, button_rect)
+		else:
+			pygame.draw.rect(screen, self.button_col, button_rect)
+		
+		#add shading to button
+		# pygame.draw.line(screen, white, (self.x, self.y), (self.x + self.width, self.y), 2)
+		# pygame.draw.line(screen, white, (self.x, self.y), (self.x, self.y + self.height), 2)
+		# pygame.draw.line(screen, black, (self.x, self.y + self.height), (self.x + self.width, self.y + self.height), 2)
+		# pygame.draw.line(screen, black, (self.x + self.width, self.y), (self.x + self.width, self.y + self.height), 2)
+
+		#add text to button
+		text_img = font.render(self.text, True, self.text_col)
+		text_len = text_img.get_width()
+		screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y + 25))
+		return action

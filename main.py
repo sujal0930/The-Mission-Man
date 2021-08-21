@@ -2,7 +2,7 @@ import pygame
 import time
 import classFile
 import world_data
-
+import Intro
 
 pygame.display.init()
 clock=pygame.time.Clock()
@@ -90,18 +90,12 @@ def redrawWindow():
 # Main while loop
 run=True
 
-# buttons
-# startMenuButton = classFile.button(200,200,"START GAME")
-# def menuScreen():
-#     run =startMenuButton.draw_button(screen)
-
-
 while run:
     clock.tick(45)
-    # print(man.x)
-    # print(MenuVisible)
-    # while menuScreen():
-    #     startMenuButton.draw_button(screen)
+    
+    if MenuVisible:
+        Intro.run(screen)
+        MenuVisible=False
 
             
     # Screen Scroll Logic
