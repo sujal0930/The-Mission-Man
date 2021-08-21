@@ -70,34 +70,34 @@ class button():
 
 def run(screen,heading,*but):
     	
+	if len(but)==1:
+		intro = button(370, 400,but[0])
+	else:
+		gameend1 = button(170, 400,but[0])
+		gameend2 = button(170, 500,but[1])
+		
+
+	run = True
+	while run:
+		
+		screen.blit(bg,(0,0))
+		
 		if len(but)==1:
-			intro = button(370, 400,but[0])
+			if intro.draw_button(screen,heading,but) :
+				run=False
 		else:
-			gameend1 = button(170, 400,but[0])
-			gameend2 = button(170, 500,but[1])
-			
-    
-		run = True
-		while run:
-			
-			screen.blit(bg,(0,0))
-			
-			if len(but)==1:
-				if intro.draw_button(screen,heading,but) :
-					run=False
-			else:
-				screen.blit(imIdeal,(600,400))
-				if gameend1.draw_button(screen,heading,but[0]):
-					run=False
-					
-				if gameend2.draw_button(screen,heading,but[1]):
-					run=False
-					pygame.display.quit()
-					
+			screen.blit(imIdeal,(600,400))
+			if gameend1.draw_button(screen,heading,but[0]):
+				run=False
 				
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					run = False	
+			if gameend2.draw_button(screen,heading,but[1]):
+				run=False
+				pygame.display.quit()
+				
+			
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				run = False	
 
 
-			pygame.display.update()
+		pygame.display.update()

@@ -117,11 +117,11 @@ class world():
 
 
 
-    def updateScreenTiling(self):
+    def updateScreenTiling(self,level):
         
         self.tile_list=[]
         self.objList=[]
-        self.level=(self.level+1)%2
+        self.level=level
 
         self.rowCount=0
         

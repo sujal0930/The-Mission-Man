@@ -52,10 +52,12 @@ def won(man):
     if Bgx<0 and man.x>900:
         Intro.run(screen,"YOU WON","play Again","Exit")
         bgX=reset()
+        return True
 def lost(man):
     if man.dead:
         Intro.run(screen,"Oops! YOU LOST","Play Again","Exit")    
         bgX=reset()
+        return True
 
 
 def redrawWindow():
@@ -104,12 +106,12 @@ while run:
 
             
     # Screen Scroll Logic
-    if man.x>950 and not man.nextScreen:
+    if man.x>950 and not nextScreen:
         Bgx=-975
         screen.blit(bg,(Bgx,0))
-        man.nextScreen=True
+        nextScreen=True
         man.x+=Bgx
-        world.updateScreenTiling()
+        world.updateScreenTiling(1)
    # QUit Window
 
     # Event and player movememt
@@ -128,11 +130,17 @@ while run:
     run=redrawWindow()
 
     if  won(man):
-        Bgx+=975
+        Bgx=0
         screen.blit(bg,(Bgx,0))
-        world.updateScreenTiling()
+        world.updateScreenTiling(0)
+        nextScreen=False
     if lost(man):
-        Bgx+=975
+        if nextScreen:
+            Bgx=0
+        screen.blit(bg,(Bgx,0))
+        world.updateScreenTiling(0)
+        nextScreen=False
+        
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
