@@ -40,16 +40,23 @@ s1=classFile.star(700,100)
 
 
 def reset():
-    pass
+    man.resetP(100,400,75,75)
+    z1.resetZ(300,600,75,75,450)
+    z2.resetZ(130,150,75,75,160)
+    s1.resetS(700,100)
+    nextScreen=False
+    return 
+    
 
-def won(man,bgX):
+def won(man):
     if Bgx<0 and man.x>900:
         Intro.run(screen,"YOU WON","play Again","Exit")
-        reset()
+        bgX=reset()
 def lost(man):
     if man.dead:
         Intro.run(screen,"Oops! YOU LOST","Play Again","Exit")    
-        reset()
+        bgX=reset()
+
 
 def redrawWindow():
     """ Draws or blits all whole world """
@@ -76,11 +83,7 @@ def redrawWindow():
 
     # star 
     s1.draw(screen)
-    # check for gamewon
-    if  won(man,Bgx):
-        flag=False
-    if lost(man):
-        flag=False
+    
     
     pygame.display.update()
     return True
@@ -93,7 +96,7 @@ run=True
 
 while run:
     clock.tick(45)
-    
+    # print(Bgx)
     if MenuVisible:
         Intro.button.intro=True
         Intro.run(screen,"THE MISSION MAN","START GAME")
@@ -101,13 +104,12 @@ while run:
 
             
     # Screen Scroll Logic
-    if man.x>950 and not nextScreen:
+    if man.x>950 and not man.nextScreen:
         Bgx=-975
         screen.blit(bg,(Bgx,0))
-        nextScreen=True
+        man.nextScreen=True
         man.x+=Bgx
         world.updateScreenTiling()
-
    # QUit Window
 
     # Event and player movememt
@@ -125,6 +127,12 @@ while run:
     # redraw the whole world
     run=redrawWindow()
 
+    if  won(man):
+        Bgx+=975
+        screen.blit(bg,(Bgx,0))
+        world.updateScreenTiling()
+    if lost(man):
+        Bgx+=975
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

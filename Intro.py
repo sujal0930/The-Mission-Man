@@ -89,7 +89,7 @@ def run(screen,heading,*but):
 				screen.blit(imIdeal,(600,400))
 				if gameend1.draw_button(screen,heading,but[0]):
 					run=False
-					return True
+					
 				if gameend2.draw_button(screen,heading,but[1]):
 					run=False
 					pygame.display.quit()

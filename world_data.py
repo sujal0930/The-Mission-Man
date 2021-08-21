@@ -121,7 +121,7 @@ class world():
         
         self.tile_list=[]
         self.objList=[]
-        self.level=1
+        self.level=(self.level+1)%2
 
         self.rowCount=0
         

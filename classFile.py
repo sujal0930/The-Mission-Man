@@ -32,7 +32,6 @@ class player(object):
         self.vel = 3
         self.vel_y = 0
         self.isJump = False
-        # self.isWalk=False
         self.moveLeft = False
         self.moveRight = False
         self.walkCount = 0
@@ -346,5 +345,3 @@ class star(object):
                 score = (score+5) % 50
                 self.visible = False
         return score
-
-
