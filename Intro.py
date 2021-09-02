@@ -3,27 +3,31 @@ from pygame.locals import *
 
 pygame.font.init()
 
+# Diferent fonts declaratons
 font = pygame.font.SysFont('Constantia', 25)
 font1 = pygame.font.SysFont('Constantia', 90)
 
+# Image load
 imIdeal = pygame.image.load('player\i1.png')
-imDead = pygame.image.load('player\dead1.png')
 imIdeal = pygame.transform.scale(imIdeal,(200,200))
-#define colours
+
+# define colours
 bg = pygame.image.load('assets\BG.png')
 red = (255, 0, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-#define global variable
+# define global variable
 clicked = False
 counter = 0
 
 class button():
+	"""class for buttons where we give its coordinantes and pass the string"""	
 	intro=False
 	won=False
 	lost =False
-	#colours for button and text
+	
+	# colours for button and text
 	button_col = (255, 0, 0)
 	hover_col = (75, 225, 255)
 	click_col = (50, 150, 255)
@@ -41,13 +45,13 @@ class button():
 		global clicked
 		action = False
 
-		#get mouse position
+		# get mouse position
 		pos = pygame.mouse.get_pos()
 
-		#create pygame Rect object for the button
-		button_rect = Rect(self.x, self.y, self.width, self.height)
+		# reate pygame Rect object for the button
+		button_rect = pygame.Rect(self.x, self.y, self.width, self.height)
 		
-		#check mouseover and clicked conditions
+		# check mouseover and clicked conditions
 		if button_rect.collidepoint(pos):
 			if pygame.mouse.get_pressed()[0] == 1:
 				clicked = True
@@ -60,9 +64,11 @@ class button():
 		else:
 			pygame.draw.rect(screen, self.button_col, button_rect)
 		
-		#add text to button
+		# Screen bliting heading
 		text_img = font1.render(heading, 1, (111,111,111))
 		screen.blit(text_img, (100,200))
+		
+		# add text to button
 		text_img = font.render(self.text, 1, self.text_col)
 		text_len = text_img.get_width()
 		screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y + 25))
@@ -76,10 +82,10 @@ def run(screen,heading,*but):
 		gameend1 = button(170, 400,but[0])
 		gameend2 = button(170, 500,but[1])
 		
-
+	# flag
 	run = True
+	# main loop
 	while run:
-		
 		screen.blit(bg,(0,0))
 		
 		if len(but)==1:

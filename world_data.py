@@ -1,8 +1,13 @@
 import pygame
 
+
+# giving screen dimentions
 screen_width=975
 screen_height=750
 
+
+
+# world-data
 
 worldData = [(
     [9,9,9,9,9,0,0,0,0,0,0,0,0],
@@ -72,7 +77,6 @@ def drawGrid(screen):
 
 #  World cration #
 class world():
-   
     objType=[pygame.image.load(f'assets\Tiles_and_objects\Objects\ob{x}.png') for x in range(1,16)]
     tilType=[pygame.image.load(f'assets\Tiles_and_objects\Tiles\s{i}.png') for i in range(1,17)]
     
@@ -83,6 +87,10 @@ class world():
         self.tileSize=75
         self.rowCount=0 
        
+        # Storing data in a list so that we can draw only those on screen 
+        # and also we can have the obstruction with the player logic
+         
+        "worldatat tiles"
         for row in worldData[self.level]:
             self.colCount=0
             for tile in row:
@@ -97,7 +105,7 @@ class world():
                 self.colCount+=1
             self.rowCount+=1
 
-        
+        "worlddata Objects"
         self.rowCount=0
         for row in objectData[self.level]:
             self.colCount=0
@@ -118,7 +126,8 @@ class world():
 
 
     def updateScreenTiling(self,level):
-        
+        """updates the tiling and layout while on nextcreen"""
+
         self.tile_list=[]
         self.objList=[]
         self.level=level
@@ -156,10 +165,13 @@ class world():
 
 
     def draw(self,screen):
+        """draws the tiling and objects on screen"""
         for tile in self.tile_list:
             screen.blit(tile[0],tile[1])
 
         for tile in self.objList:
             screen.blit(tile[0],tile[1])
+
+            # rectangle print for tiles
             # pygame.draw.rect(screen,(255,255,255),tile[1],2)
             
