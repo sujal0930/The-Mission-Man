@@ -6,6 +6,7 @@ pygame.font.init()
 # Diferent fonts declaratons
 font = pygame.font.SysFont('Constantia', 25)
 font1 = pygame.font.SysFont('Constantia', 90)
+font2 = pygame.font.SysFont('Tranformers Movie', 40)
 
 # Image load
 imIdeal = pygame.image.load('player\i1.png')
@@ -74,7 +75,8 @@ class button():
 		screen.blit(text_img, (self.x + int(self.width / 2) - int(text_len / 2), self.y + 25))
 		return action
 
-def run(screen,heading,*but):
+def run(screen,score,heading,*but):
+
     	
 	if len(but)==1:
 		intro = button(370, 400,but[0])
@@ -88,11 +90,15 @@ def run(screen,heading,*but):
 	while run:
 		screen.blit(bg,(0,0))
 		
+		screen.blit(imIdeal,(600,400))
 		if len(but)==1:
-			if intro.draw_button(screen,heading,but) :
-				run=False
+    			if intro.draw_button(screen,heading,but) :
+    				run=False
 		else:
-			screen.blit(imIdeal,(600,400))
+    			
+			scoreboard = font2.render('YOUR SCORE : ' +  str(score),27,(233,133,13))
+			screen.blit(scoreboard,(420,330))
+
 			if gameend1.draw_button(screen,heading,but[0]):
 				run=False
 				

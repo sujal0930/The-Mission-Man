@@ -4,8 +4,15 @@ import classFile
 import world_data
 import Intro
 
+
+
+
 pygame.display.init()
 clock=pygame.time.Clock()
+
+pygame.font.init()
+# Diferent fonts declaratons
+font = pygame.font.SysFont('Transformers Movie', 40)
 
 # background
 bg = pygame.image.load('assets\BG.png')
@@ -28,25 +35,35 @@ Bgx=0
 
 # Introscreen
 introScreen =True
-
+secondChar=False
 # object declarations
 
 world = world_data.world()
 man = classFile.player(100,400,75,75)
 zom=[]
-z1 = classFile.zombie(300,600,75,75,450)
+z1 = classFile.zombie(400,600,75,75,450)
 z2 = classFile.zombie(130,150,75,75,160)
 zom.append(z1)
 zom.append(z2)
-s1=classFile.star(700,100)
+s=[]
+s1=(classFile.star(700,100))
+s2=(classFile.star(150,150))
+s3=(classFile.star(350,300))
+s.append(s1)
+s.append(s2)
+s.append(s3)
+
+
 
 
 def reset():
     """ This function calls the reset function of each object class and re-initialise them """
     man.resetP(100,400,75,75)
-    z1.resetZ(300,600,75,75,450)
+    z1.resetZ(400,600,75,75,450)
     z2.resetZ(130,150,75,75,160)
     s1.resetS(700,100)
+    s2.resetS(150,150)
+    s3.resetS(350,300)
     nextScreen=False
     return 
     
@@ -54,14 +71,14 @@ def reset():
 def won(man):
     """This function check if won and calls the buffer screen with respective messages."""
     if Bgx<0 and man.x>900:
-        Intro.run(screen,"YOU WON","play Again","Exit")
+        Intro.run(screen,score,"YOU WON","play Again","Exit")
         bgX=reset()
         return True
 
 def lost(man):
     """This function check if lost and calls the buffer screen with respective messages."""
     if man.dead:
-        Intro.run(screen,"Oops! YOU LOST","Play Again","Exit")    
+        Intro.run(screen,score,"Oops! YOU LOST","Play Again","Exit")    
         bgX=reset()
         return True
 
@@ -72,6 +89,9 @@ def redrawWindow():
     # redraw just the background to avoid mutiprint as in loop.
     screen.blit(bg,(Bgx,0))
     
+    # score board
+    scoreBoard = font.render('SCORE : ' +  str(score),21,(233,133,13))
+    screen.blit(scoreBoard,(800,30))
 
     # draw World
     world.draw(screen)
@@ -90,6 +110,8 @@ def redrawWindow():
 
     # star 
     s1.draw(screen)
+    s2.draw(screen)
+    s3.draw(screen)
     
     #update the screen 
     pygame.display.update()
@@ -105,7 +127,7 @@ while run:
     clock.tick(60)
     if introScreen:
         Intro.button.intro=True
-        Intro.run(screen,"THE MISSION MAN","START GAME")
+        Intro.run(screen,score,"THE MISSION MAN","START GAME")
         introScreen=False
 
             
@@ -116,6 +138,21 @@ while run:
         nextScreen=True
         man.x+=Bgx
         world.updateScreenTiling(1)
+    
+    # if not secondChar and  nextScreen:
+    #     z1 = classFile.zombie(750,150,75,75,450)
+    #     z2 = classFile.zombie(130,150,75,75,160)
+    #     zom.append(z1)
+    #     zom.append(z2)
+    #     s=[]
+    #     s1=(classFile.star(700,100))
+    #     s2=(classFile.star(150,150))
+    #     s3=(classFile.star(350,300))
+    #     s.append(s1)
+    #     s.append(s2)
+    #     s.append(s3)    
+    #     secondChar=False
+    # char reset in 2nd level
 
     # Events and player movememt
     man.movePlayer(world.tile_list)
@@ -128,6 +165,8 @@ while run:
 
     # star grab
     score=s1.grabStar(score,man)
+    score=s2.grabStar(score,man)
+    score=s3.grabStar(score,man)
 
     # redraw the whole world
     run=redrawWindow()

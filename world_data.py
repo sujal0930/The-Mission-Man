@@ -7,8 +7,7 @@ screen_height=750
 
 
 
-# world-data
-
+# world-data tiles
 worldData = [(
     [9,9,9,9,9,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -34,8 +33,8 @@ worldData = [(
     [0,0,0,0,0,0,0,0,0,0,0,0,0],
     [3,3,3,3,3,0,2,4,0,0,0,0,0])
 ]
-# objects data
 
+# objects data
 objectData=[
 
     #  world 1
