@@ -5,12 +5,12 @@ import world_data
 import Intro
 
 
-
-
+music = pygame.mixer.music.load('assets/sounds/music.mp3')
+pygame.mixer.music.play(-1)
 pygame.display.init()
 clock=pygame.time.Clock()
 
-pygame.font.init()
+pygame.init()
 # Diferent fonts declaratons
 font = pygame.font.SysFont('Transformers Movie', 40)
 
@@ -45,13 +45,10 @@ z1 = classFile.zombie(400,600,75,75,450)
 z2 = classFile.zombie(130,150,75,75,160)
 zom.append(z1)
 zom.append(z2)
-s=[]
+
 s1=(classFile.star(700,100))
 s2=(classFile.star(150,150))
 s3=(classFile.star(350,300))
-s.append(s1)
-s.append(s2)
-s.append(s3)
 
 
 

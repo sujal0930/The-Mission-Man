@@ -1,11 +1,10 @@
 import pygame
 import Intro
-pygame.font.init()
+pygame.init()
 
-
-font = pygame.font.SysFont('serif', 40, bold=True, italic=False)
-    
-
+hitSound = pygame.mixer.Sound('assets/sounds/hit.mp3')
+bulletSound = pygame.mixer.Sound('assets/sounds/bullet.mp3')
+starSound = pygame.mixer.Sound('assets/sounds/starSound.mp3')
 
 class player(object):
     "Player class the hero"
@@ -130,7 +129,9 @@ class player(object):
 
         # shoot bullet 
         if keys[pygame.K_TAB] and bullet.shootLoop == 0:
-            # bullet.play()
+
+            # audio of shoot
+            bulletSound.play()
 
             if self.moveLeft:
                 face = -1
@@ -181,7 +182,7 @@ class player(object):
                 if self.hitbox[1] + self.hitbox[3] > i.hitbox[1] and self.hitbox[1] < i.hitbox[1]+i.hitbox[3]:
                     if self.hitbox[0] + self.hitbox[2] > i.hitbox[0] and self.hitbox[0] < i.hitbox[0]+i.hitbox[2]:
                         # print("Hit"+ str(self.j))
-                        self.j += 1
+                        # self.j += 1
                         self.health -= 1
 
 
@@ -286,16 +287,15 @@ class bullet(object):
             while i < len(bullet.bulletList):
                 if bullet.bulletList[i].y < z1.hitbox[1] + z1.hitbox[3] and bullet.bulletList[i].y > z1.hitbox[1]:
                     if bullet.bulletList[i].x > z1.hitbox[0] and bullet.bulletList[i].x < z1.hitbox[0]+z1.hitbox[2]:
-                        # add sound
-                        # hitSound.play()
+                        # sound of hitting
                         if z1.visible:
+                            hitSound.play()
                             z1.hit()
                             score += 1
                             bullet.bulletList.pop(i)
                             continue
                         else:
-                            bullet.bulletList[i].x += (
-                                bullet.bulletList[i].vel)
+                            bullet.bulletList[i].x += (bullet.bulletList[i].vel)
 
                 # firing and moving logic of bullets
 
@@ -319,7 +319,7 @@ class bullet(object):
 
 class star(object):
     """ Star class -> init, draw, resetS, grabstar """
-    starList = []
+
 
     def __init__(self, x, y):
         self.resetS(x, y)
@@ -350,6 +350,8 @@ class star(object):
         """ Logic for grabbing the star by player"""
         if self.visible:
             if self.rect.colliderect(man.hitbox):
+                # sound of grabing
+                starSound.play()
                 if man.health+10>50:
                     man.health=50
                 else:
@@ -357,3 +359,4 @@ class star(object):
                 score +=5
                 self.visible = False
         return score
+
