@@ -65,21 +65,20 @@ def reset():
     s2.resetS(150,150)
     s3.resetS(350,300)
     nextScreen=False
-    return 
     
 
 def won(man):
     """This function check if won and calls the buffer screen with respective messages."""
     if Bgx<0 and man.x>900:
         Intro.run(screen,score,"YOU WON","play Again","Exit")
-        bgX=reset()
+        reset()
         return True
 
 def lost(man):
     """This function check if lost and calls the buffer screen with respective messages."""
     if man.dead:
         Intro.run(screen,score,"Oops! YOU LOST","Play Again","Exit")    
-        bgX=reset()
+        reset()
         return True
 
 
@@ -124,7 +123,7 @@ run=True
 
 while run:
     """  MAIN LOOP  """
-    clock.tick(60)
+    clock.tick(45)
     if introScreen:
         Intro.button.intro=True
         Intro.run(screen,score,"THE MISSION MAN","START GAME")
@@ -138,20 +137,21 @@ while run:
         nextScreen=True
         man.x+=Bgx
         world.updateScreenTiling(1)
-    
-    # if not secondChar and  nextScreen:
-    #     z1 = classFile.zombie(750,150,75,75,450)
-    #     z2 = classFile.zombie(130,150,75,75,160)
-    #     zom.append(z1)
-    #     zom.append(z2)
-    #     s=[]
-    #     s1=(classFile.star(700,100))
-    #     s2=(classFile.star(150,150))
-    #     s3=(classFile.star(350,300))
-    #     s.append(s1)
-    #     s.append(s2)
-    #     s.append(s3)    
-    #     secondChar=False
+
+    if not secondChar and nextScreen:
+        z1 = classFile.zombie(750,225,75,75,850)
+        z2 = classFile.zombie(450,375,75,75,475)
+        zom.append(z1)
+        zom.append(z2)
+        s=[]
+        s1=(classFile.star(700,100))
+        s2=(classFile.star(150,150))
+        s3=(classFile.star(350,300))
+        s.append(s1)
+        s.append(s2)
+        s.append(s3)    
+        world.updateScreenTiling(1)
+        secondChar=True
     # char reset in 2nd level
 
     # Events and player movememt
@@ -178,6 +178,7 @@ while run:
         screen.blit(bg,(Bgx,0))
         world.updateScreenTiling(0)
         nextScreen=False
+        score=0
     if lost(man):
         # if i=on next level it reinitialse it on 1st screen
         if nextScreen:
@@ -185,6 +186,7 @@ while run:
         screen.blit(bg,(Bgx,0))
         world.updateScreenTiling(0)
         nextScreen=False
+        score=0
         
     # Quit game 
     for event in pygame.event.get():

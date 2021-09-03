@@ -1,10 +1,8 @@
 import pygame
 
-
 # giving screen dimentions
 screen_width=975
 screen_height=750
-
 
 
 # world-data tiles
@@ -53,15 +51,15 @@ objectData=[
     ,
 
     ([0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [5,0,0,0,0,0,0,0,0,0,0,3,0],
+    [13,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,11,0,0,0,0,0,4],
+    [0,14,0,0,0,0,0,0,0,0,14,0,0],
+    [0,0,0,0,0,0,0,9,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0],
-   [0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,15])
+    [0,0,6,0,0,0,0,0,0,0,0,0,0],
+    [11,0,0,13,0,0,0,0,0,3,0,0,15])
 ]
 
 def drawGrid(screen):
@@ -167,10 +165,10 @@ class world():
         """draws the tiling and objects on screen"""
         for tile in self.tile_list:
             screen.blit(tile[0],tile[1])
+            # pygame.draw.rect(screen,(255,255,255),tile[1],2)
 
         for tile in self.objList:
             screen.blit(tile[0],tile[1])
-
-            # rectangle print for tiles
             # pygame.draw.rect(screen,(255,255,255),tile[1],2)
+            # rectangle print for tiles
             

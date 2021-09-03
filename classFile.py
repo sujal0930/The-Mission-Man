@@ -350,7 +350,10 @@ class star(object):
         """ Logic for grabbing the star by player"""
         if self.visible:
             if self.rect.colliderect(man.hitbox):
-                man.health += 10
-                score = (score+5) % 50
+                if man.health+10>50:
+                    man.health=50
+                else:
+                    man.health+=10
+                score +=5
                 self.visible = False
         return score
