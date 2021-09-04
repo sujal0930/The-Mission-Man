@@ -15,7 +15,7 @@ pygame.init()
 font = pygame.font.SysFont('Transformers Movie', 40)
 
 # background
-bg = pygame.image.load('assets\BG.png')
+bg = pygame.image.load('assets/BG.png')
 
 #fix the game screen width
 screen_width=975
@@ -85,6 +85,8 @@ def redrawWindow():
     # redraw just the background to avoid mutiprint as in loop.
     screen.blit(bg,(Bgx,0))
     
+
+    world_data.drawGrid(screen)
     # score board
     scoreBoard = font.render('SCORE : ' +  str(score),21,(233,133,13))
     screen.blit(scoreBoard,(800,30))
@@ -121,6 +123,7 @@ run=True
 while run:
     """  MAIN LOOP  """
     clock.tick(45)
+    print(clock)
     if introScreen:
         Intro.button.intro=True
         Intro.run(screen,score,"THE MISSION MAN","START GAME")

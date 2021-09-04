@@ -74,8 +74,8 @@ def drawGrid(screen):
 
 #  World cration #
 class world():
-    objType=[pygame.image.load(f'assets\Tiles_and_objects\Objects\ob{x}.png') for x in range(1,16)]
-    tilType=[pygame.image.load(f'assets\Tiles_and_objects\Tiles\s{i}.png') for i in range(1,17)]
+    objType=[pygame.image.load(f'assets/Tiles_and_objects/Objects/ob{x}.png') for x in range(1,16)]
+    tilType=[pygame.image.load(f'assets/Tiles_and_objects/Tiles/s{i}.png') for i in range(1,17)]
     
     def __init__(self):
         self.tile_list=[]

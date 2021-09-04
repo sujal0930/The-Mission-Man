@@ -9,11 +9,11 @@ font1 = pygame.font.SysFont('Constantia', 90)
 font2 = pygame.font.SysFont('Tranformers Movie', 40)
 
 # Image load
-imIdeal = pygame.image.load('player\i1.png')
+imIdeal = pygame.image.load('player/i1.png')
 imIdeal = pygame.transform.scale(imIdeal,(200,200))
 
 # define colours
-bg = pygame.image.load('assets\BG.png')
+bg = pygame.image.load('assets/BG.png')
 red = (255, 0, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -24,9 +24,9 @@ counter = 0
 
 class button():
 	"""class for buttons where we give its coordinantes and pass the string"""	
-	intro=False
-	won=False
-	lost =False
+	# intro=False
+	# won=False
+	# lost =False
 	
 	# colours for button and text
 	button_col = (255, 0, 0)

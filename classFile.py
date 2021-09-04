@@ -261,7 +261,7 @@ class bullet(object):
     """ Bullet class -> init , hitbullet , draw """
 
     # image and bulletlist where bullet is appended
-    bullImg = pygame.image.load('assets\star_ammo\pro2.png')
+    bullImg = pygame.image.load('assets/star_ammo/pro2.png')
     bulletList = []
     shootLoop = 0
 
@@ -328,7 +328,7 @@ class star(object):
         """resets the star at deafult declared locations"""
         self.x = x
         self.y = y
-        self.image = pygame.image.load('assets\star_ammo\star.png')
+        self.image = pygame.image.load('assets/star_ammo/star.png')
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
